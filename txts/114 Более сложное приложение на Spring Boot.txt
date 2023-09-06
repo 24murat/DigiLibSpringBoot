@@ -1,0 +1,51 @@
+114 Более сложное приложение на Spring Boot
+
+    Перепишем наше Spring приложение с помощью Spring Boot
+
+            Создадим пустое Spring Boot приложение на сервисе https://start.spring.io/
+        Добавляем в него компоненты нашего Spring MVC приложения.
+
+            A)  Добавим конфигурацию нашей БД
+
+        Вместо:
+
+hibernate.driver_class=org.postgresql.Driver
+hibernate.connection.url=jdbc:postgresql://localhost:5432/digiLib_db
+hibernate.connection.username=postgres
+hibernate.connection.password=1234
+
+hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+hibernate.show_sql=true
+
+        Будет:
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/digiLib_db
+spring.datasource.username=postgres
+spring.datasource.password=1234
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.show_sql=true
+
+
+            B)  Еще одна конфигурация - конфигурация, которая лежит в исходном проекте в
+        MySpringMVCDispatcherServletInitializer в той части, где мы добавляем фильтр для скрытых полей
+
+private void registerHiddenFieldFilter(ServletContext aContext) {
+    aContext.addFilter("hiddenHttpMethodFilter",
+            new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
+}
+
+        В Spring MVC приложении для реализации этого фильтра, нужно было создавать целый метод,
+        теперь же в Spring Boot конфигурации нам нужно добавить всего лишь одну строку
+
+spring.mvc.hiddenmethod.filter.enabled=true
+
+        Эта вся конфигурация, которая будет в нашем приложении.
+
+
+            C)  Теперь просто берем и копируем все папки из оригинального проекта
+
+        Скопировали папки с классами, поправили импорты в связи с измененными путями.
+
+        Копируем папки с представлениями и вставляем в папку templates

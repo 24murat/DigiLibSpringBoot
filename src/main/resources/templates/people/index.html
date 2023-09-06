@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все люди</title>
+</head>
+<body>
+
+<div th:each="person : ${people}">
+    <a th:href="@{/people/{personId}(personId=${person.getPersonId()})}"
+       th:text="${'🙋🏽‍♂️' + person.getPersonName() + ', ' + person.getPersonYearOfBirth()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/people/new">Добавить человека 📝</a>
+
+</body>
+</html>

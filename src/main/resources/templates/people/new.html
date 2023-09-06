@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Страница добавления человека</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+  <label for="personName">Введите ФИО: </label>
+  <input type="text" th:field="*{personName}" id="personName">
+  <div style="color:red" th:if="${#fields.hasErrors('personName')}" th:errors="*{personName}">Name error</div>
+  <br/>
+  <label for="personYearOfBirth">Введите год рождения: </label>
+  <input type="text" th:field="*{personYearOfBirth}" id="personYearOfBirth">
+  <div style="color:red" th:if="${#fields.hasErrors('personYearOfBirth')}" th:errors="*{personYearOfBirth}">Year of birth error</div>
+  <br/>
+  <input type="submit" value="Создать!">
+</form>
+
+</body>
+</html>
